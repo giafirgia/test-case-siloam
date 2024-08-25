@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 interface EditProductProps {
     open: boolean;
@@ -16,16 +17,12 @@ interface EditProductProps {
     onconfirm?: () => void
 }
 
-export const EditProductModal = ({ open, form }: EditProductProps) => {
+export const EditProductModal = ({ open, form, onclose }: EditProductProps) => {
     return (
-        <Dialog open={open}>
+        <Dialog open={open} onOpenChange={onclose}>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Update</DialogTitle>
-                    <DialogDescription>
-                        This action cannot be undone. This will permanently delete your account
-                        and remove your data from our servers.
-                    </DialogDescription>
                 </DialogHeader>
                 <div>
                     <Form {...form}>
@@ -102,6 +99,9 @@ export const EditProductModal = ({ open, form }: EditProductProps) => {
                                 </FormItem>
                                 )}
                             />
+
+                            <Button className="w-full mt-5">Update</Button>
+                            <Button className="w-full mt-5" variant={"secondary"} onClick={onclose}>Cancel</Button>
                         </form>
                     </Form>
                 </div>

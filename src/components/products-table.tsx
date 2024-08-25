@@ -18,28 +18,14 @@ import { EditProductModal } from "./modals/edit-product-modal"
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import Image from "next/image"
 
 interface ProductsProps {
     data: ProductDto[],
     loading?: boolean
 }
 
-export const ProductsTable = ({ data, loading = false }: ProductsProps) => {
-    const [selectedIndex, setSelectedIndex] = React.useState(-1)
-    const [editData, setEditData] = React.useState<ProductDto>()
-    const [isAdmin, setIsAdmin] = React.useState(false)
-    
-    const handleSelectIndex = React.useCallback((idx: number) => {
-        if(idx === selectedIndex) setSelectedIndex(-1)
-        else setSelectedIndex(idx)
-    }, [selectedIndex])
-
-    React.useEffect(() => {
-        const role = localStorage.getItem('role')
-        if(role && role == 'admin') setIsAdmin(true)
-    }, [])
-
-    const saveSchema = z
+const saveSchema = z
     .object({
       name: z
         .string({
@@ -65,6 +51,22 @@ export const ProductsTable = ({ data, loading = false }: ProductsProps) => {
         .string(),
     })
 
+export const ProductsTable = ({ data, loading = false }: ProductsProps) => {
+    const [selectedIndex, setSelectedIndex] = React.useState(-1)
+    const [editData, setEditData] = React.useState<ProductDto>()
+    const [isAdmin, setIsAdmin] = React.useState(false)
+    const [isShowModal, setIsShowModal] = React.useState(false)
+    
+    const handleSelectIndex = React.useCallback((idx: number) => {
+        if(idx === selectedIndex) setSelectedIndex(-1)
+        else setSelectedIndex(idx)
+    }, [selectedIndex])
+
+    React.useEffect(() => {
+        const role = localStorage.getItem('role')
+        if(role && role == 'admin') setIsAdmin(true)
+    }, [])
+
     const form = useForm({
         resolver: zodResolver(saveSchema),
         values: {
@@ -78,6 +80,16 @@ export const ProductsTable = ({ data, loading = false }: ProductsProps) => {
             latitude: editData?.latitude,
         }
     })
+
+    const handleEditPress = React.useCallback((item: ProductDto) => {
+        setEditData(item)
+        setIsShowModal(true)
+    }, [])
+
+    const handleEditClosePress = React.useCallback(() => {
+        setEditData(undefined)
+        setIsShowModal(false)
+    }, [])
 
     return (
         <div className="relative overflow-auto">
@@ -120,7 +132,7 @@ export const ProductsTable = ({ data, loading = false }: ProductsProps) => {
                                                 {
                                                     isAdmin && (
                                                         <TableCell className="text-center">
-                                                            <IconPenToSquare color="orange" button onclick={() => setEditData(item)} />
+                                                            <IconPenToSquare color="orange" button onclick={() => handleEditPress(item)} />
                                                         </TableCell>
                                                     )
                                                 }
@@ -130,12 +142,41 @@ export const ProductsTable = ({ data, loading = false }: ProductsProps) => {
                                                     <TableCell colSpan={5}>
                                                         <div className="flex">
                                                             <div className="mr-3">
-                                                                <img src="/assets/no-image.jpg" width={'100px'}  />
+                                                                {
+                                                                    item?.image_url ? 
+                                                                    (
+                                                                        <Image
+                                                                            src={item?.image_url}
+                                                                            alt={item?.name}
+                                                                            width={100}
+                                                                            height={100}
+                                                                        />
+                                                                    )
+                                                                    :
+                                                                    (
+                                                                        <img src="/assets/no-image.jpg" width={'100px'}  />
+                                                                    )
+                                                                }
                                                             </div>
                                                             <div className="flex flex-col">
                                                                 <span>Phone: {item?.phone_number_1 || '-'}</span>
                                                                 <span>
                                                                     Pinpoin: {item?.latitude && item?.longitude ? (<button onClick={() => window.open(`https://maps.google.com/?q=${item?.latitude},${item?.longitude}`, '_blank')}>Open Location</button>) : 'No Pinpoint Available'}
+                                                                </span>
+                                                                <span>
+                                                                    Hospital SEO Key: {item?.hospital_seo_key}
+                                                                </span>
+                                                                <span>
+                                                                    Registration Url: {item?.url_registration ? (<button onClick={() => window.open(`${item?.url_registration}`, '_blank')}>Open Registration Url</button>) : '-'}
+                                                                </span>
+                                                                <span>
+                                                                    Pharmacy Url: {item?.url_pharmacy ? (<button onClick={() => window.open(`${item?.url_pharmacy}`, '_blank')}>Open Registration Url</button>) : '-'}
+                                                                </span>
+                                                                <span>
+                                                                    Tele MySiloam: {item?.is_tele_mysiloam ? (<span className="text-indigo font-bold">Yes</span>) : (<span className="text-indigo font-bold">No</span>)}
+                                                                </span>
+                                                                <span>
+                                                                    Tele AIDO: {item?.is_tele_aido ? (<span className="text-indigo font-bold">Yes</span>) : (<span className="text-indigo font-bold">No</span>)}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -150,7 +191,7 @@ export const ProductsTable = ({ data, loading = false }: ProductsProps) => {
                     </TableBody>
                 </Table>
             </ScrollArea>
-            <EditProductModal open={false} form={form} />
+            <EditProductModal open={isShowModal} form={form} onconfirm={handleEditClosePress} onclose={handleEditClosePress} />
         </div>
     )
 }

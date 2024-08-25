@@ -1,0 +1,18 @@
+{
+    "hospital_id": "beba4c15-72d4-473a-bb9e-6dc26c0c9052",
+    "hospital_hope_id": 19,
+    "hospital_status_id": "1",
+    "name": "MRCCC Siloam Hospitals Semanggi",
+    "alias": "MRCCC",
+    "address": "Jl. Garnisun 1 No.2-3, RT.5/RW.4, Karet Semanggi, Kecamatan Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12930",
+    "phone_number_1": "+622129962888",
+    "longitude": 106.817158,
+    "latitude": -6.219056,
+    "area_id": "e6570aa4-efd8-4c95-b33a-0a290c8fe982",
+    "image_url": "https://api-mysiloam.siloamhospitals.com/images/thumbnail1540968388030607988673384.jpeg",
+    "hospital_seo_key": "mrccc-siloam-hospitals-semanggi",
+    "url_registration": "https://wa.me/6281271222542?",
+    "url_pharmacy": "https://wa.me/6281271222542?",
+    "is_tele_mysiloam": true,
+    "is_tele_aido": true
+}
