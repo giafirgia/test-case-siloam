@@ -5,13 +5,11 @@ async function getData() {
       method: "GET",
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer ....",
       },
     };
   
     const response = fetch(
-      siloamHospitalsApi,
+      `${siloamHospitalsApi}/hospitals`,
       options
     )
       .then((response) => response.json())
