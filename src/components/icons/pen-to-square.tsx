@@ -4,8 +4,8 @@ import { IconProps } from './globals/icon-props'
 
 interface PenToSquareProps extends IconProps {}
 
-export const IconPenToSquare = ({ color, button = false }: PenToSquareProps) => {
+export const IconPenToSquare = ({ color, button = false, onclick }: PenToSquareProps) => {
     return (
-        <FontAwesomeIcon icon={faPenToSquare} color={color} cursor={button ? 'pointer' : ''} />
+        <FontAwesomeIcon icon={faPenToSquare} color={color} cursor={button ? 'pointer' : ''} onClick={onclick} />
     )
 }

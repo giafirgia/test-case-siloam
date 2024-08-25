@@ -1,4 +1,5 @@
 export type ProductDto = {
+    id: string;
     hospital_id: string;
     hospital_hope_id: string;
     hospital_status_id: string;
