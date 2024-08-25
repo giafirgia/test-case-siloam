@@ -11,7 +11,6 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
 import { IconChevron } from "./icons/chevron"
 import { ProductDto } from "@/app/product.dto"
-import { ScrollArea } from "@radix-ui/react-scroll-area"
 import React from "react"
 import { IconPenToSquare } from "./icons/pen-to-square"
 import { EditProductModal } from "./modals/edit-product-modal"
@@ -19,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Image from "next/image"
+import { ScrollArea } from "./ui/scroll-area"
 
 interface ProductsProps {
     data: ProductDto[],

@@ -30,7 +30,7 @@ export const EditProductModal = ({ open, form, onclose }: EditProductProps) => {
                             <FormField
                                 control={form.control}
                                 name="name"
-                                render={({ field }) => (
+                                render={({ field }: any) => (
                                 <FormItem>
                                     <FormLabel className="text-[#9FA0BC]">Name</FormLabel>
                                     <div className="w-full">
@@ -48,7 +48,7 @@ export const EditProductModal = ({ open, form, onclose }: EditProductProps) => {
                             <FormField
                                 control={form.control}
                                 name="alias"
-                                render={({ field }) => (
+                                render={({ field }: any) => (
                                 <FormItem className="mt-2">
                                     <FormLabel className="text-[#9FA0BC]">Alias</FormLabel>
                                     <div className="w-full">
@@ -66,7 +66,7 @@ export const EditProductModal = ({ open, form, onclose }: EditProductProps) => {
                             <FormField
                                 control={form.control}
                                 name="address"
-                                render={({ field }) => (
+                                render={({ field }: any) => (
                                 <FormItem className="mt-2">
                                     <FormLabel className="text-[#9FA0BC]">Address</FormLabel>
                                     <div className="w-full">
@@ -84,7 +84,7 @@ export const EditProductModal = ({ open, form, onclose }: EditProductProps) => {
                             <FormField
                                 control={form.control}
                                 name="address"
-                                render={({ field }) => (
+                                render={({ field }: any) => (
                                 <FormItem className="mt-2">
                                     <FormLabel className="text-[#9FA0BC]">Address</FormLabel>
                                     <div className="w-full">
